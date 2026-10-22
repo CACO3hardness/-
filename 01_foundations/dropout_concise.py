@@ -2,6 +2,8 @@ from IPython import display
 import matplotlib_inline.backend_inline
 display.set_matplotlib_formats = matplotlib_inline.backend_inline.set_matplotlib_formats
 
+from pathlib import Path
+
 import torch
 from torch import nn
 from torchvision import transforms, datasets
@@ -35,9 +37,11 @@ net.apply(init_weights)
 # 数据
 batch_size = 256
 trans = transforms.ToTensor()
-mnist_train = datasets.FashionMNIST(root="./data", train=True,
+data_dir = Path(__file__).resolve().parents[1] / "data"
+data_dir.mkdir(parents=True, exist_ok=True)
+mnist_train = datasets.FashionMNIST(root=str(data_dir), train=True,
                                     transform=trans, download=True)
-mnist_test = datasets.FashionMNIST(root="./data", train=False,
+mnist_test = datasets.FashionMNIST(root=str(data_dir), train=False,
                                    transform=trans, download=True)
 
 train_iter = DataLoader(mnist_train, batch_size=batch_size,

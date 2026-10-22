@@ -37,7 +37,7 @@ b1 = nn.Sequential(
 
 def resnet_block(input_channels, num_channels, num_residuals,
                  first_block=False):
-    blk = []                          
+    blk = []
     for i in range(num_residuals):
         if i == 0 and not first_block:
             blk.append(Residual(input_channels, num_channels,

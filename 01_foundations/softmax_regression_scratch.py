@@ -15,7 +15,7 @@ b = torch.zeros(num_outputs, requires_grad=True)# 10 个偏置
 def softmax(X):
     X_exp = torch.exp(X)
     partition = X_exp.sum(1, keepdim=True)
-    return X_exp / partition 
+    return X_exp / partition
 #定义模型
 def net(X):
     return softmax(torch.matmul(X.reshape((-1, W.shape[0])), W) + b)

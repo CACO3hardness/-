@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+.env
+.ipynb_checkpoints/
+
+# Downloaded datasets
+/data/
+
+# Model weights
+*.pt
+*.pth
+*.ckpt
+*.onnx
+
+# Generated training outputs
+03_rnn/*_perplexity.png
+05_projects/house_price_prediction/outputs/
+*.log
+
+# Office and OS metadata
+Thumbs.db
+Desktop.ini
+.DS_Store
+~$*

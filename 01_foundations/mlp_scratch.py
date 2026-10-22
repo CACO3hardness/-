@@ -14,7 +14,7 @@ def main():
     params = [W1, b1, W2, b2] # 存下参数
 
     def relu(X): #定义激活函数
-        return torch.max(X, torch.zeros_like(X)) 
+        return torch.max(X, torch.zeros_like(X))
 
     def net(X): #搭建模型
         X = X.reshape((-1, num_inputs))
@@ -25,19 +25,17 @@ def main():
     num_epochs, lr = 10, 0.1 # 学习次数和学习率
     updater = torch.optim.SGD(params, lr=lr) #迭代器使用随机梯度下降
 
-    for epoch in range(num_epochs): 
+    for epoch in range(num_epochs):
         for X, y in train_iter:
             y_hat = net(X) #预测值
             l = loss(y_hat, y)
             updater.zero_grad()# 梯度归零
             l.mean().backward() # 反向传播计算梯度
-            updater.step() 
+            updater.step()
         metric = d2l.Accumulator(2)
         for X, y in test_iter:
             metric.add(d2l.accuracy(net(X), y), y.numel())
         print(f"epoch {epoch+1}, test acc {metric[0]/metric[1]:.3f}")
-
-    input("按回车退出...")
 
 if __name__ == '__main__':
     main()

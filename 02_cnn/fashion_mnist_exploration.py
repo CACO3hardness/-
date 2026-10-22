@@ -1,4 +1,5 @@
-%matplotlib inline
+from pathlib import Path
+
 import torch
 import torchvision # 计算机视觉包
 from torch.utils import data # 数据加载
@@ -7,11 +8,14 @@ from d2l import torch as d2l
 
 d2l.use_svg_display() # 输出矢量图
 
+data_dir = Path(__file__).resolve().parents[1] / "data"
+data_dir.mkdir(parents=True, exist_ok=True)
+
 trans = transforms.ToTensor() #将图像或者数组变成张量，将像素值缩放，改变形状到通道在前
 mnist_train = torchvision.datasets.FashionMNIST(# 加载训练集
-    root = "../data",train = True,transform = trans,download = True)
+    root=str(data_dir),train = True,transform = trans,download = True)
 mnist_test = torchvision.datasets.FashionMNIST(# 加载测试集
-    root="../data",train=False,transform=trans,download=True)
+    root=str(data_dir),train=False,transform=trans,download=True)
 
 len(mnist_train),len(mnist_test)
 mnist_train[0][0].shape
@@ -23,13 +27,13 @@ def get_fashion_mnist_labels(labels):
 def show_images(imgs,num_rows,num_cols,titles=None,scale=1.5):
     #scale 控制图像大小
     figsize = (num_cols * scale,num_rows * scale)
-    
+
     #创建子图网格，返回画布fig和坐标轴数组
     _, axes = d2l.plt.subplots(num_rows,num_cols,figsize=figsize)
-    
+
     #将axes 展平为一维数组
     axes = axes.flatten()
-    
+
     #遍历所有子图和对应图像
     for i,(ax,img) in enumerate(zip(axes,imgs)):
         #转成能显示的形式
@@ -52,7 +56,7 @@ batch_size = 256
 
 def get_dataloader_workers():
     return 4
-    
+
 train_iter = data.DataLoader(mnist_train,batch_size,shuffle=True,num_workers=get_dataloader_workers())# 重新设计一个加载器
 
 def load_data_fashion_mnist(batch_size, resize=None):  #@save
@@ -63,9 +67,9 @@ def load_data_fashion_mnist(batch_size, resize=None):  #@save
     trans = transforms.Compose(trans)# 串联起来
 
     mnist_train = torchvision.datasets.FashionMNIST(#加载训练集
-        root="../data", train=True, transform=trans, download=True)
+        root=str(data_dir), train=True, transform=trans, download=True)
     mnist_test = torchvision.datasets.FashionMNIST(#加载测试集
-        root="../data", train=False, transform=trans, download=True)
+        root=str(data_dir), train=False, transform=trans, download=True)
 
     return (data.DataLoader(mnist_train, batch_size, shuffle=True,
                             num_workers=get_dataloader_workers()),

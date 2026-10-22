@@ -1,0 +1,15 @@
+# Core deep learning
+torch>=2.0
+torchvision>=0.15
+d2l>=1.0.3
+pyd2l
+
+# Numerical computing and classical ML
+numpy>=1.24
+pandas>=2.0
+scikit-learn>=1.3
+
+# Visualization and notebook helpers
+ipython>=8.18
+matplotlib>=3.7
+matplotlib-inline>=0.1
